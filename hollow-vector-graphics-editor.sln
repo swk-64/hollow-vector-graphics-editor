@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36518.9 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hollow-vector-graphics-editor", "hollow-vector-graphics-editor\hollow-vector-graphics-editor.csproj", "{44E0E364-303C-4533-B8E8-9D4A3DC7E4BB}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{44E0E364-303C-4533-B8E8-9D4A3DC7E4BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44E0E364-303C-4533-B8E8-9D4A3DC7E4BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44E0E364-303C-4533-B8E8-9D4A3DC7E4BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44E0E364-303C-4533-B8E8-9D4A3DC7E4BB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7A8DF21B-3089-4FA1-91BC-3E8C3CDC530A}
+	EndGlobalSection
+EndGlobal
