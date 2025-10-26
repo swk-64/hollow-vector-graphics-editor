@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace hollow_vector_graphics_editor
+namespace hollow_vector_graphics_editor.Shapes
 {
-    internal class StraightLine : Shape
+    internal class Circle : Shape
     {
         public override void drawShape()
         {

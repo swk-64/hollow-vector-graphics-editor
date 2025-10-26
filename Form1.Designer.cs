@@ -1,4 +1,6 @@
-﻿namespace hollow_vector_graphics_editor
+﻿using hollow_vector_graphics_editor.Shapes;
+
+namespace hollow_vector_graphics_editor
 {
     partial class Form1
     {
@@ -86,7 +88,7 @@
             btn_drw_line.ImageTransparentColor = Color.Magenta;
             btn_drw_line.Name = "btn_drw_line";
             btn_drw_line.Size = new Size(38, 20);
-            btn_drw_line.Tag = "line";
+            btn_drw_line.Tag = new StraightLine();
             btn_drw_line.Text = "Line";
             btn_drw_line.Click += ToolButton_Click;
             // 
@@ -98,7 +100,7 @@
             btn_drw_circle.ImageTransparentColor = Color.Magenta;
             btn_drw_circle.Name = "btn_drw_circle";
             btn_drw_circle.Size = new Size(38, 20);
-            btn_drw_circle.Tag = "circle";
+            btn_drw_circle.Tag = new Circle();
             btn_drw_circle.Text = "Circle";
             btn_drw_circle.Click += ToolButton_Click;
             // 
