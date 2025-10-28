@@ -31,6 +31,15 @@ namespace hollow_vector_graphics_editor
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+
+            // Tool instances
+            ShapeTool<hollow_vector_graphics_editor.Shapes.Rectangle> RectangleTool = new();
+            ShapeTool<hollow_vector_graphics_editor.Shapes.StraightLine> StraightLineTool = new();
+            ShapeTool<hollow_vector_graphics_editor.Shapes.Circle> CircleTool = new();
+
+            // ###########################################################################
+
+
             tableLayoutPanel1 = new TableLayoutPanel();
             canvas = new Panel();
             tools = new ToolStrip();
@@ -88,7 +97,7 @@ namespace hollow_vector_graphics_editor
             btn_drw_line.ImageTransparentColor = Color.Magenta;
             btn_drw_line.Name = "btn_drw_line";
             btn_drw_line.Size = new Size(38, 20);
-            btn_drw_line.Tag = new StraightLine();
+            btn_drw_line.Tag = StraightLineTool;
             btn_drw_line.Text = "Line";
             btn_drw_line.Click += ToolButton_Click;
             // 
@@ -100,7 +109,7 @@ namespace hollow_vector_graphics_editor
             btn_drw_circle.ImageTransparentColor = Color.Magenta;
             btn_drw_circle.Name = "btn_drw_circle";
             btn_drw_circle.Size = new Size(38, 20);
-            btn_drw_circle.Tag = new Circle();
+            btn_drw_circle.Tag = CircleTool;
             btn_drw_circle.Text = "Circle";
             btn_drw_circle.Click += ToolButton_Click;
             // 
@@ -112,7 +121,7 @@ namespace hollow_vector_graphics_editor
             btn_drw_rect.ImageTransparentColor = Color.Magenta;
             btn_drw_rect.Name = "btn_drw_rect";
             btn_drw_rect.Size = new Size(38, 20);
-            btn_drw_rect.Tag = "rect";
+            btn_drw_rect.Tag = RectangleTool;
             btn_drw_rect.Text = "Rectangle";
             btn_drw_rect.Click += ToolButton_Click;
             // 

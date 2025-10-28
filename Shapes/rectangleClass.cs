@@ -6,13 +6,17 @@ using System.Threading.Tasks;
 
 namespace hollow_vector_graphics_editor.Shapes
 {
-    internal class Rectangle : Shape
+    internal class Rectangle : Shape, IShapeStatic<Rectangle>
     {
-        public override void drawShape()
+        public static void previewShape(Point point1, Point point2)
         {
             throw new NotImplementedException();
         }
-        public override void fillShape()
+        public static void makeShape(Point point1, Point point2)
+        {
+            throw new NotImplementedException();
+        }
+        public override void drawShape(Graphics g)
         {
             throw new NotImplementedException();
         }
