@@ -10,16 +10,16 @@ namespace hollow_vector_graphics_editor
         ShapeTool<hollow_vector_graphics_editor.Shapes.Rectangle> RectangleTool = new();
         ShapeTool<hollow_vector_graphics_editor.Shapes.StraightLine> StraightLineTool = new();
         ShapeTool<hollow_vector_graphics_editor.Shapes.Circle> CircleTool = new();
+        SelectionTool SelectionTool = new();
 
-        private IShapeTool? currentTool = null;
-        private List<Shape> shapes = new List<Shape>();
-        private Point startPoint = new Point(0, 0);
-        private Point endPoint = new Point(0, 0);
-        private Color fillColor = Color.MistyRose;
-        private Color strokeColor = Color.Red;
+        private Tool? currentTool = null;
+
+        private DrawingContext context = new DrawingContext(Color.Red, Color.MistyRose, 2);
+
         private bool isMouseLeftDown = false;
 
         private TrackBar thicknessSlider;
+
         ToolStripLabel thicknessLabel = new ToolStripLabel("Thickness: 2");
 
         public Form1()
@@ -27,8 +27,16 @@ namespace hollow_vector_graphics_editor
             InitializeComponent();
 
             btn_drw_line.Tag = StraightLineTool;
+            btn_drw_line.Click += ToolButton_Click;
+
             btn_drw_circle.Tag = CircleTool;
+            btn_drw_circle.Click += ToolButton_Click;
+
             btn_drw_rect.Tag = RectangleTool;
+            btn_drw_rect.Click += ToolButton_Click;
+
+            btn_selection_tool.Tag = SelectionTool;
+            btn_selection_tool.Click += ToolButton_Click;
 
             thicknessSlider = new TrackBar
             {
@@ -56,7 +64,8 @@ namespace hollow_vector_graphics_editor
 
             if (colorDialog.ShowDialog() == DialogResult.OK)
             {
-                fillColor = colorDialog.Color;
+                context.fillColor = colorDialog.Color;
+                if (currentTool != null) currentTool.prepareTool(context);
             }
         }
         private void btnStrokeColor_Click(object sender, EventArgs e)
@@ -65,17 +74,25 @@ namespace hollow_vector_graphics_editor
 
             if (colorDialog.ShowDialog() == DialogResult.OK)
             {
-                strokeColor = colorDialog.Color;
+                context.strokeColor = colorDialog.Color;
+                if (currentTool != null) currentTool.prepareTool(context);
             }
         }
         private void thicknessSlider_ValueChanged(object sender, EventArgs e)
         {
             thicknessLabel.Text = $"Thickness: {thicknessSlider.Value}";
+            context.strokeThickness = thicknessSlider.Value;
+            if (currentTool != null) currentTool.prepareTool(context);
         }
         private void ToolButton_Click(object sender, EventArgs e)
         {
             var clicked = sender as ToolStripButton;
-            currentTool = clicked!.Tag as IShapeTool;
+            if (clicked!.Tag == null) currentTool = null;
+            else 
+            {
+                currentTool = clicked!.Tag as Tool;
+                currentTool.prepareTool(context);
+            }
 
             foreach (ToolStripItem item in clicked.Owner!.Items)
                 if (item is ToolStripButton btn)
@@ -83,16 +100,16 @@ namespace hollow_vector_graphics_editor
         }
         private void Canvas_Paint(object sender, PaintEventArgs e)
         {
-            if (shapes.Any())
+            if (context.shapes.Any())
             {
-                foreach (Shape shape in shapes)
+                foreach (Shape shape in context.shapes)
                 {
-                    shape.drawShape(e.Graphics);
+                    shape.drawShape(e.Graphics, context);
                 }
             }
-            if (currentTool != null)
+            if (currentTool is not null)
             {
-                currentTool.Preview(e.Graphics, startPoint, endPoint, strokeColor, fillColor, thicknessSlider.Value);
+                currentTool.onPaint(e.Graphics, context);
             }
         }
         private void Canvas_MouseDown(object sender, MouseEventArgs e)
@@ -100,11 +117,16 @@ namespace hollow_vector_graphics_editor
             if (e.Button == MouseButtons.Left)
             {
                 isMouseLeftDown = true;
-                startPoint.X = e.X;
-                startPoint.Y = e.Y;
 
-                endPoint.X = e.X;
-                endPoint.Y = e.Y;
+                context.downPoint = e.Location;
+
+                context.currentPoint = e.Location;
+
+                if (currentTool is not null)
+                {
+                    currentTool.onMouseDown(context);
+                    canvas.Invalidate();
+                }
             }
         }
         private void Canvas_MouseMove(object sender, MouseEventArgs e)
@@ -114,10 +136,11 @@ namespace hollow_vector_graphics_editor
                 if (e.Button == MouseButtons.Left)
                 {
 
-                    if (currentTool != null)
+                    if (currentTool is not null)
                     {
-                        endPoint.X = e.X;
-                        endPoint.Y = e.Y;
+                        context.currentPoint = e.Location;
+
+                        currentTool.onMouseMove(context);
 
                         canvas.Invalidate();
                     }
@@ -126,18 +149,18 @@ namespace hollow_vector_graphics_editor
         }
         private void Canvas_MouseUp(object sender, MouseEventArgs e)
         {
-            endPoint.X = e.X;
-            endPoint.Y = e.Y;
             if (isMouseLeftDown)
             {
                 if (e.Button == MouseButtons.Left)
                 {
-                    isMouseLeftDown = false;
+                    context.currentPoint = e.Location;
 
-                    if (currentTool != null)
+                    if (currentTool is not null)
                     {
-                        shapes.Add(currentTool.Make(startPoint, endPoint, strokeColor, fillColor, thicknessSlider.Value));
+                        currentTool.onMouseUp(context);
                     }
+
+                    isMouseLeftDown = false;
                 }
             }
 

@@ -8,7 +8,7 @@ namespace hollow_vector_graphics_editor.Shapes
 {
     internal class Rectangle : Shape, IShapeStatic<Rectangle>
     {
-        public static void previewShape(Graphics g, Point point1, Point point2, Color strokeColor, Color fillColor, int strokeThickness)
+        public static void previewShape(Graphics g, Point point1, Point point2, Pen strokePen, Brush fillBrush, int strokeThickness)
         {
             int minX = Math.Min(point1.X, point2.X);
             int minY = Math.Min(point1.Y, point2.Y);
@@ -17,31 +17,39 @@ namespace hollow_vector_graphics_editor.Shapes
             int height = point1.Y + point2.Y - minY * 2;
 
             System.Drawing.Rectangle rect = new System.Drawing.Rectangle(minX, minY, width, height);
-            using (Brush brush = new SolidBrush(fillColor))
-            {
-                g.FillRectangle(brush, rect);
-            }
-            using (Pen pen = new Pen(strokeColor, strokeThickness))
-            {
-                g.DrawRectangle(pen, rect);
-            }
+
+            g.FillRectangle(fillBrush, rect);
+
+            g.DrawRectangle(strokePen, rect);
 
         }
-        public static Shape makeShape(Point point1, Point point2, Color strokeColor, Color fillColor, int strokeThickness)
+        public static Shape makeShape(Point point1, Point point2, Pen strokePen, Brush fillBrush, int strokeThickness)
         {
-            return new Rectangle(point1, point2, strokeColor, fillColor, strokeThickness);
+            return new Rectangle(point1, point2, strokePen, fillBrush, strokeThickness);
         }
-        public override void drawShape(Graphics g)
+        public override void drawShape(Graphics g, DrawingContext context)
         {
-            previewShape(g, this.startPoint, this.endPoint, this.strokeColor, this.fillColor, this.strokeThickness);
+            if (isVisible)
+            {
+                if (isSelected)
+                {
+                    previewShape(g, this.startPoint, this.endPoint, context.strokePen, context.fillBrush, context.strokeThickness);
+                }
+                else previewShape(g, this.startPoint, this.endPoint, this.strokePen, this.fillBrush, this.strokeThickness);
+            }
         }
-        public override void removeShape()
+        public override bool containsPoint(Point p)
         {
-            throw new NotImplementedException();
+            return this.startPoint.X <= p.X && p.X <= this.endPoint.X && this.startPoint.Y <= p.Y && p.Y <= this.endPoint.Y;
         }
+        public override void moveShape(Point endMovement, Point relativeClickPositionToStartPoint, Point relativeClickPositionToEndPoint)
+        {
+            this.startPoint = new Point(endMovement.X - relativeClickPositionToStartPoint.X, endMovement.Y - relativeClickPositionToStartPoint.Y);
 
-        public Rectangle(Point startPoint, Point endPoint, Color strokeColor, Color fillColor, int strokeThickness)
-            : base(startPoint, endPoint, strokeColor, fillColor, strokeThickness)
+            this.endPoint = new Point(endMovement.X + relativeClickPositionToEndPoint.X, endMovement.Y + relativeClickPositionToEndPoint.Y);
+        }
+        public Rectangle(Point startPoint, Point endPoint, Pen strokePen, Brush fillBrush, int strokeThickness)
+            : base(startPoint, endPoint, strokePen, fillBrush, strokeThickness)
         {
 
         }

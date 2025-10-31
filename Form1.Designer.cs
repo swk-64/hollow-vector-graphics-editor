@@ -40,6 +40,7 @@ namespace hollow_vector_graphics_editor
             btn_drw_line = new ToolStripButton();
             btn_drw_circle = new ToolStripButton();
             btn_drw_rect = new ToolStripButton();
+            btn_selection_tool = new ToolStripButton();
             tableLayoutPanel1.SuspendLayout();
             shape_params.SuspendLayout();
             tools.SuspendLayout();
@@ -108,7 +109,7 @@ namespace hollow_vector_graphics_editor
             // 
             tools.CanOverflow = false;
             tools.Dock = DockStyle.Fill;
-            tools.Items.AddRange(new ToolStripItem[] { btn_drw_line, btn_drw_circle, btn_drw_rect });
+            tools.Items.AddRange(new ToolStripItem[] { btn_selection_tool, btn_drw_line, btn_drw_circle, btn_drw_rect });
             tools.LayoutStyle = ToolStripLayoutStyle.VerticalStackWithOverflow;
             tools.Location = new Point(0, 0);
             tools.Name = "tools";
@@ -124,8 +125,7 @@ namespace hollow_vector_graphics_editor
             btn_drw_line.ImageTransparentColor = Color.Magenta;
             btn_drw_line.Name = "btn_drw_line";
             btn_drw_line.Size = new Size(28, 20);
-            btn_drw_line.Text = "Line";
-            btn_drw_line.Click += ToolButton_Click;
+            btn_drw_line.Text = "Straight Line Tool";
             // 
             // btn_drw_circle
             // 
@@ -135,8 +135,7 @@ namespace hollow_vector_graphics_editor
             btn_drw_circle.ImageTransparentColor = Color.Magenta;
             btn_drw_circle.Name = "btn_drw_circle";
             btn_drw_circle.Size = new Size(28, 20);
-            btn_drw_circle.Text = "Circle";
-            btn_drw_circle.Click += ToolButton_Click;
+            btn_drw_circle.Text = "Circle Tool";
             // 
             // btn_drw_rect
             // 
@@ -146,8 +145,19 @@ namespace hollow_vector_graphics_editor
             btn_drw_rect.ImageTransparentColor = Color.Magenta;
             btn_drw_rect.Name = "btn_drw_rect";
             btn_drw_rect.Size = new Size(28, 20);
-            btn_drw_rect.Text = "Rectangle";
-            btn_drw_rect.Click += ToolButton_Click;
+            btn_drw_rect.Text = "Rectangle Tool";
+            // 
+            // btn_selection_tool
+            // 
+            btn_selection_tool.Checked = true;
+            btn_selection_tool.CheckOnClick = true;
+            btn_selection_tool.CheckState = CheckState.Checked;
+            btn_selection_tool.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btn_selection_tool.Image = (Image)resources.GetObject("btn_selection_tool.Image");
+            btn_selection_tool.ImageTransparentColor = Color.Magenta;
+            btn_selection_tool.Name = "btn_selection_tool";
+            btn_selection_tool.Size = new Size(28, 20);
+            btn_selection_tool.Text = "Selection Tool";
             // 
             // Form1
             // 
@@ -177,5 +187,6 @@ namespace hollow_vector_graphics_editor
         private ToolStrip shape_params;
         private ToolStripButton btn_change_stroke_color;
         private ToolStripButton btn_change_fill_color;
+        private ToolStripButton btn_selection_tool;
     }
 }
