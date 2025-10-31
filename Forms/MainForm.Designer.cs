@@ -37,10 +37,10 @@ namespace hollow_vector_graphics_editor
             btn_change_fill_color = new ToolStripButton();
             canvas = new Panel();
             tools = new ToolStrip();
+            btn_selection_tool = new ToolStripButton();
             btn_drw_line = new ToolStripButton();
             btn_drw_circle = new ToolStripButton();
             btn_drw_rect = new ToolStripButton();
-            btn_selection_tool = new ToolStripButton();
             tableLayoutPanel1.SuspendLayout();
             shape_params.SuspendLayout();
             tools.SuspendLayout();
@@ -117,6 +117,18 @@ namespace hollow_vector_graphics_editor
             tools.TabIndex = 1;
             tools.Text = "Tools";
             // 
+            // btn_selection_tool
+            // 
+            btn_selection_tool.Checked = true;
+            btn_selection_tool.CheckOnClick = true;
+            btn_selection_tool.CheckState = CheckState.Checked;
+            btn_selection_tool.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btn_selection_tool.Image = (Image)resources.GetObject("btn_selection_tool.Image");
+            btn_selection_tool.ImageTransparentColor = Color.Magenta;
+            btn_selection_tool.Name = "btn_selection_tool";
+            btn_selection_tool.Size = new Size(28, 20);
+            btn_selection_tool.Text = "Selection Tool";
+            // 
             // btn_drw_line
             // 
             btn_drw_line.CheckOnClick = true;
@@ -147,26 +159,15 @@ namespace hollow_vector_graphics_editor
             btn_drw_rect.Size = new Size(28, 20);
             btn_drw_rect.Text = "Rectangle Tool";
             // 
-            // btn_selection_tool
-            // 
-            btn_selection_tool.Checked = true;
-            btn_selection_tool.CheckOnClick = true;
-            btn_selection_tool.CheckState = CheckState.Checked;
-            btn_selection_tool.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btn_selection_tool.Image = (Image)resources.GetObject("btn_selection_tool.Image");
-            btn_selection_tool.ImageTransparentColor = Color.Magenta;
-            btn_selection_tool.Name = "btn_selection_tool";
-            btn_selection_tool.Size = new Size(28, 20);
-            btn_selection_tool.Text = "Selection Tool";
-            // 
-            // Form1
+            // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
             Controls.Add(tableLayoutPanel1);
-            Name = "Form1";
-            Text = "Form1";
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Name = "MainForm";
+            Text = "Hollow Vector Graphics Editor";
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
             shape_params.ResumeLayout(false);
