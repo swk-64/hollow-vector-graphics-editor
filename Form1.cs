@@ -38,6 +38,11 @@ namespace hollow_vector_graphics_editor
             btn_selection_tool.Tag = SelectionTool;
             btn_selection_tool.Click += ToolButton_Click;
 
+            canvas.PreviewKeyDown += canvas_PreviewKeyDown;
+            canvas.KeyDown += canvas_KeyDown;
+            canvas.TabStop = true;
+
+
             thicknessSlider = new TrackBar
             {
                 Minimum = 1,
@@ -57,7 +62,21 @@ namespace hollow_vector_graphics_editor
             btn_change_fill_color.Click += btnFillColor_Click;
 
         }
-
+        private void canvas_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                e.IsInputKey = true; // tells WinForms this is a real input key
+            }
+        }
+        private void canvas_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                currentTool.onKeyDown(context);
+                canvas.Invalidate();
+            }
+        }
         private void btnFillColor_Click(object sender, EventArgs e)
         {
             ColorDialog colorDialog = new ColorDialog();
@@ -87,12 +106,8 @@ namespace hollow_vector_graphics_editor
         private void ToolButton_Click(object sender, EventArgs e)
         {
             var clicked = sender as ToolStripButton;
-            if (clicked!.Tag == null) currentTool = null;
-            else 
-            {
-                currentTool = clicked!.Tag as Tool;
-                currentTool.prepareTool(context);
-            }
+            currentTool = clicked!.Tag as Tool;
+            currentTool.prepareTool(context);
 
             foreach (ToolStripItem item in clicked.Owner!.Items)
                 if (item is ToolStripButton btn)
@@ -116,6 +131,7 @@ namespace hollow_vector_graphics_editor
         {
             if (e.Button == MouseButtons.Left)
             {
+                canvas.Focus();
                 isMouseLeftDown = true;
 
                 context.downPoint = e.Location;

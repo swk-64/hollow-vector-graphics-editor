@@ -25,7 +25,16 @@ namespace hollow_vector_graphics_editor.Shapes
         }
         public static Shape makeShape(Point point1, Point point2, Pen strokePen, Brush fillBrush, int strokeThickness)
         {
-            return new Rectangle(point1, point2, strokePen, fillBrush, strokeThickness);
+            int minX = Math.Min(point1.X, point2.X);
+            int minY = Math.Min(point1.Y, point2.Y);
+
+            int width = point1.X + point2.X - minX * 2;
+            int height = point1.Y + point2.Y - minY * 2;
+
+            Point start = new Point(minX,  minY);
+            Point end = new Point(minX + width, minY + height);
+
+            return new Rectangle(start, end, strokePen, fillBrush, strokeThickness);
         }
         public override void drawShape(Graphics g, DrawingContext context)
         {
