@@ -1,17 +1,11 @@
-﻿using hollow_vector_graphics_editor.Shapes;
-using System;
-using System.Collections.Generic;
-using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using hollow_vector_graphics_editor.Classes.Shapes;
 
-namespace hollow_vector_graphics_editor
+namespace hollow_vector_graphics_editor.Classes
 {
     internal class DrawingContext
     {
         public List<Shape> shapes;
-        public hollow_vector_graphics_editor.Shapes.Shape? selectedShape { get; set; }
+        public Shape? selectedShape { get; set; }
 
 
         public Color strokeColor { get; set; }
@@ -28,7 +22,7 @@ namespace hollow_vector_graphics_editor
 
         public void update()
         {
-            if (this.selectedShape is not null)
+            if (selectedShape is not null)
             {
                 selectedShape.setSelection(false);
                 selectedShape = null;
@@ -42,10 +36,10 @@ namespace hollow_vector_graphics_editor
             this.fillColor = fillColor;
             this.strokeThickness = strokeThickness;
 
-            this.strokePen = new Pen(strokeColor, strokeThickness);
-            this.fillBrush = new SolidBrush(fillColor);
+            strokePen = new Pen(strokeColor, strokeThickness);
+            fillBrush = new SolidBrush(fillColor);
 
-            this.shapes = new List<Shape>();
+            shapes = new List<Shape>();
         }
     }
 }

@@ -1,8 +1,8 @@
-﻿using hollow_vector_graphics_editor.Shapes;
+﻿using hollow_vector_graphics_editor.Classes.Shapes;
 
 namespace hollow_vector_graphics_editor
 {
-    partial class Form1
+    partial class MainForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -30,7 +30,7 @@ namespace hollow_vector_graphics_editor
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             tableLayoutPanel1 = new TableLayoutPanel();
             shape_params = new ToolStrip();
             btn_change_stroke_color = new ToolStripButton();

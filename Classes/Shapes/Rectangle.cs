@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace hollow_vector_graphics_editor.Shapes
+﻿namespace hollow_vector_graphics_editor.Classes.Shapes
 {
     internal class Rectangle : Shape, IShapeStatic<Rectangle>
     {
@@ -42,20 +36,20 @@ namespace hollow_vector_graphics_editor.Shapes
             {
                 if (isSelected)
                 {
-                    previewShape(g, this.startPoint, this.endPoint, context.strokePen, context.fillBrush, context.strokeThickness);
+                    previewShape(g, startPoint, endPoint, context.strokePen, context.fillBrush, context.strokeThickness);
                 }
-                else previewShape(g, this.startPoint, this.endPoint, this.strokePen, this.fillBrush, this.strokeThickness);
+                else previewShape(g, startPoint, endPoint, strokePen, fillBrush, strokeThickness);
             }
         }
         public override bool containsPoint(Point p)
         {
-            return this.startPoint.X <= p.X && p.X <= this.endPoint.X && this.startPoint.Y <= p.Y && p.Y <= this.endPoint.Y;
+            return startPoint.X <= p.X && p.X <= endPoint.X && startPoint.Y <= p.Y && p.Y <= endPoint.Y;
         }
         public override void moveShape(Point endMovement, Point relativeClickPositionToStartPoint, Point relativeClickPositionToEndPoint)
         {
-            this.startPoint = new Point(endMovement.X - relativeClickPositionToStartPoint.X, endMovement.Y - relativeClickPositionToStartPoint.Y);
+            startPoint = new Point(endMovement.X - relativeClickPositionToStartPoint.X, endMovement.Y - relativeClickPositionToStartPoint.Y);
 
-            this.endPoint = new Point(endMovement.X + relativeClickPositionToEndPoint.X, endMovement.Y + relativeClickPositionToEndPoint.Y);
+            endPoint = new Point(endMovement.X + relativeClickPositionToEndPoint.X, endMovement.Y + relativeClickPositionToEndPoint.Y);
         }
         public Rectangle(Point startPoint, Point endPoint, Pen strokePen, Brush fillBrush, int strokeThickness)
             : base(startPoint, endPoint, strokePen, fillBrush, strokeThickness)

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace hollow_vector_graphics_editor.Shapes
+﻿namespace hollow_vector_graphics_editor.Classes.Shapes
 {
     internal class Circle : Shape, IShapeStatic<Circle>
     {
@@ -27,7 +21,7 @@ namespace hollow_vector_graphics_editor.Shapes
         {
             if (isVisible)
             {
-                System.Drawing.Rectangle bounds = new System.Drawing.Rectangle(this.startPoint.X - this.radius, this.startPoint.Y - this.radius, this.radius * 2, this.radius * 2);
+                System.Drawing.Rectangle bounds = new System.Drawing.Rectangle(startPoint.X - radius, startPoint.Y - radius, radius * 2, radius * 2);
 
                 if (isSelected)
                 {
@@ -37,29 +31,29 @@ namespace hollow_vector_graphics_editor.Shapes
                 }
                 else
                 {
-                    g.FillEllipse(this.fillBrush, bounds);
+                    g.FillEllipse(fillBrush, bounds);
 
-                    g.DrawEllipse(this.strokePen, bounds);
+                    g.DrawEllipse(strokePen, bounds);
                 }
             }
         }
         public override bool containsPoint(Point p)
         {
-            int deltaX = p.X - this.startPoint.X;
-            int deltaY = p.Y - this.startPoint.Y;
+            int deltaX = p.X - startPoint.X;
+            int deltaY = p.Y - startPoint.Y;
 
-            return Math.Sqrt(deltaY * deltaY + deltaX * deltaX) <= this.radius;
+            return Math.Sqrt(deltaY * deltaY + deltaX * deltaX) <= radius;
         }
         public override void moveShape(Point endMovement, Point relativeClickPositionToStartPoint, Point relativeClickPositionToEndPoint)
         {
-            this.startPoint = new Point(endMovement.X - relativeClickPositionToStartPoint.X, endMovement.Y - relativeClickPositionToStartPoint.Y);
+            startPoint = new Point(endMovement.X - relativeClickPositionToStartPoint.X, endMovement.Y - relativeClickPositionToStartPoint.Y);
 
-            this.endPoint = new Point(endMovement.X + relativeClickPositionToEndPoint.X, endMovement.Y + relativeClickPositionToEndPoint.Y);
+            endPoint = new Point(endMovement.X + relativeClickPositionToEndPoint.X, endMovement.Y + relativeClickPositionToEndPoint.Y);
         }
         public Circle(Point startPoint, Point endPoint, Pen strokePen, Brush fillBrush, int strokeThickness)
             : base(startPoint, endPoint, strokePen, fillBrush, strokeThickness) 
         { 
-            this.radius = (int)Math.Round(Math.Sqrt((this.startPoint.X - this.endPoint.X) * (this.startPoint.X - this.endPoint.X) + (this.startPoint.Y - this.endPoint.Y) * (this.startPoint.Y - this.endPoint.Y)));
+            radius = (int)Math.Round(Math.Sqrt((this.startPoint.X - this.endPoint.X) * (this.startPoint.X - this.endPoint.X) + (this.startPoint.Y - this.endPoint.Y) * (this.startPoint.Y - this.endPoint.Y)));
         }
     }
 }

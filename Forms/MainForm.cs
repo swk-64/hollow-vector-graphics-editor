@@ -1,15 +1,15 @@
-using hollow_vector_graphics_editor.Shapes;
-using System.Drawing;
-using System.Windows.Forms;
+using hollow_vector_graphics_editor.Classes;
+using hollow_vector_graphics_editor.Classes.Shapes;
+using hollow_vector_graphics_editor.Classes.Tools;
 
 namespace hollow_vector_graphics_editor
 {
-    public partial class Form1 : Form
+    public partial class MainForm : Form
     {
         // instantiate Tools
-        ShapeTool<hollow_vector_graphics_editor.Shapes.Rectangle> RectangleTool = new();
-        ShapeTool<hollow_vector_graphics_editor.Shapes.StraightLine> StraightLineTool = new();
-        ShapeTool<hollow_vector_graphics_editor.Shapes.Circle> CircleTool = new();
+        ShapeTool<Classes.Shapes.Rectangle> RectangleTool = new();
+        ShapeTool<StraightLine> StraightLineTool = new();
+        ShapeTool<Circle> CircleTool = new();
         SelectionTool SelectionTool = new();
 
         private Tool? currentTool = null;
@@ -22,7 +22,7 @@ namespace hollow_vector_graphics_editor
 
         ToolStripLabel thicknessLabel = new ToolStripLabel("Thickness: 2");
 
-        public Form1()
+        public MainForm()
         {
             InitializeComponent();
 
@@ -66,7 +66,7 @@ namespace hollow_vector_graphics_editor
         {
             if (e.KeyCode == Keys.Delete)
             {
-                e.IsInputKey = true; // tells WinForms this is a real input key
+                e.IsInputKey = true;
             }
         }
         private void canvas_KeyDown(object sender, KeyEventArgs e)
