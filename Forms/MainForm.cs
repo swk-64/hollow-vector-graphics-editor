@@ -38,6 +38,9 @@ namespace hollow_vector_graphics_editor
             btn_selection_tool.Tag = SelectionTool;
             btn_selection_tool.Click += ToolButton_Click;
 
+            btn_layer_down.Click += LayerButton_Click;
+            btn_layer_up.Click += LayerButton_Click;
+
             canvas.PreviewKeyDown += canvas_PreviewKeyDown;
             canvas.KeyDown += canvas_KeyDown;
             canvas.TabStop = true;
@@ -75,6 +78,17 @@ namespace hollow_vector_graphics_editor
             {
                 currentTool.onKeyDown(context);
                 canvas.Invalidate();
+            }
+        }
+        private void layerButton_Click(object sender, EventArgs e)
+        {
+            if (currentTool == )
+            ColorDialog colorDialog = new ColorDialog();
+
+            if (colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                context.fillColor = colorDialog.Color;
+                if (currentTool != null) currentTool.prepareTool(context);
             }
         }
         private void btnFillColor_Click(object sender, EventArgs e)
