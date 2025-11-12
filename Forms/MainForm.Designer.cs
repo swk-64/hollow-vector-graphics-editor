@@ -50,6 +50,7 @@ namespace hollow_vector_graphics_editor
             btn_layer_add = new Button();
             btn_layer_remove = new Button();
             dgv_layer = new DataGridView();
+            lbl_note = new Label();
             tableLayoutPanel1.SuspendLayout();
             tools.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
@@ -234,6 +235,7 @@ namespace hollow_vector_graphics_editor
             tableLayoutPanel4.Controls.Add(btn_layer_add, 2, 1);
             tableLayoutPanel4.Controls.Add(btn_layer_remove, 3, 1);
             tableLayoutPanel4.Controls.Add(dgv_layer, 0, 0);
+            tableLayoutPanel4.Controls.Add(lbl_note, 0, 2);
             tableLayoutPanel4.Dock = DockStyle.Fill;
             tableLayoutPanel4.Location = new Point(3, 103);
             tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -277,7 +279,7 @@ namespace hollow_vector_graphics_editor
             // btn_layer_remove
             // 
             btn_layer_remove.Dock = DockStyle.Fill;
-            btn_layer_remove.Image = Properties.Resources.remove;
+            btn_layer_remove.Image = (Image)resources.GetObject("btn_layer_remove.Image");
             btn_layer_remove.Location = new Point(114, 172);
             btn_layer_remove.Name = "btn_layer_remove";
             btn_layer_remove.Size = new Size(31, 27);
@@ -288,6 +290,8 @@ namespace hollow_vector_graphics_editor
             // 
             dgv_layer.AllowUserToAddRows = false;
             dgv_layer.AllowUserToDeleteRows = false;
+            dgv_layer.AllowUserToResizeColumns = false;
+            dgv_layer.AllowUserToResizeRows = false;
             dgv_layer.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tableLayoutPanel4.SetColumnSpan(dgv_layer, 4);
             dgv_layer.Dock = DockStyle.Fill;
@@ -295,9 +299,23 @@ namespace hollow_vector_graphics_editor
             dgv_layer.MultiSelect = false;
             dgv_layer.Name = "dgv_layer";
             dgv_layer.RowHeadersVisible = false;
+            dgv_layer.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
+            dgv_layer.RowTemplate.Resizable = DataGridViewTriState.False;
             dgv_layer.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgv_layer.Size = new Size(142, 163);
             dgv_layer.TabIndex = 5;
+            // 
+            // lbl_note
+            // 
+            lbl_note.AutoSize = true;
+            tableLayoutPanel4.SetColumnSpan(lbl_note, 4);
+            lbl_note.Dock = DockStyle.Fill;
+            lbl_note.ForeColor = Color.Red;
+            lbl_note.Location = new Point(3, 202);
+            lbl_note.Name = "lbl_note";
+            lbl_note.Size = new Size(142, 136);
+            lbl_note.TabIndex = 6;
+            lbl_note.Text = "To remove a shape, press Del while the shape is selected.";
             // 
             // MainForm
             // 
@@ -317,6 +335,7 @@ namespace hollow_vector_graphics_editor
             tableLayoutPanel3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)thicknessSlider).EndInit();
             tableLayoutPanel4.ResumeLayout(false);
+            tableLayoutPanel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dgv_layer).EndInit();
             ResumeLayout(false);
         }
@@ -342,5 +361,6 @@ namespace hollow_vector_graphics_editor
         private Label thicknessLabel;
         private Button btn_layer_remove;
         private DataGridView dgv_layer;
+        private Label lbl_note;
     }
 }

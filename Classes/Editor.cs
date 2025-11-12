@@ -37,9 +37,9 @@ namespace hollow_vector_graphics_editor.Classes
 
         public void Render(PaintEventArgs e)
         {
-            if (layerManager.layers.Any())
+            if (layerManager.Layers.Any())
             {
-                foreach (Layer layer in layerManager.layers)
+                foreach (Layer layer in layerManager.Layers)
                 {
                     if (layer.GetShapes() != null)
                     {

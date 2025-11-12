@@ -5,7 +5,6 @@ namespace hollow_vector_graphics_editor.Classes
 {
     internal class DrawingContext
     {
-        //public Layer? currentLayer;
         public LayerManager layerManager;
         public Shape? selectedShape { get; set; }
 

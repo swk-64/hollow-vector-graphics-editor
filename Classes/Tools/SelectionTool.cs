@@ -24,9 +24,9 @@ namespace hollow_vector_graphics_editor.Classes.Tools
                 context.selectedShape.setSelection(false);
                 context.selectedShape = null;
             }
-            if (context.layerManager.currentLayer.Shapes.Any())
+            if (context.layerManager.CurrentLayer!.Shapes.Any())
             {
-                foreach (Shape shape in context.layerManager.currentLayer.Shapes)
+                foreach (Shape shape in context.layerManager.CurrentLayer.Shapes)
                 {
 
                     if (shape.containsPoint(context.downPoint))
@@ -56,7 +56,7 @@ namespace hollow_vector_graphics_editor.Classes.Tools
         {
             if (context.selectedShape is not null)
             {
-                if (!context.layerManager.currentLayer.Shapes.Remove(context.selectedShape)) { throw new Exception("Failed to delete shape"); }
+                if (!context.layerManager.CurrentLayer!.Shapes.Remove(context.selectedShape)) { throw new Exception("Failed to delete shape"); }
                 context.selectedShape = null;
             }
         }

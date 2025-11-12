@@ -9,9 +9,11 @@ namespace hollow_vector_graphics_editor.Classes
 {
     internal class LayerManager
     {
-        public List<Layer> layers;
+        private List<Layer> layers;
+        public List<Layer> Layers { get { return layers; } }
 
-        public Layer? currentLayer;
+        private Layer? currentLayer;
+        public Layer? CurrentLayer { get { return currentLayer; } set { currentLayer = value; } }
 
         public void addLayer(Layer layer)
         {

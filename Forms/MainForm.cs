@@ -2,6 +2,7 @@ using hollow_vector_graphics_editor.Classes;
 using hollow_vector_graphics_editor.Classes.Shapes;
 using hollow_vector_graphics_editor.Classes.Tools;
 using System;
+using System.Data.Common;
 using System.Windows.Forms;
 
 namespace hollow_vector_graphics_editor
@@ -39,14 +40,18 @@ namespace hollow_vector_graphics_editor
             {
                 Name = "Visible",
                 HeaderText = "Visible",
-                Width = 50
+                Width = 50,
+                SortMode = DataGridViewColumnSortMode.NotSortable
+
             });
 
             dgv_layer.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "Layer",
                 HeaderText = "Layer",
-                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill
+                AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill,
+                SortMode = DataGridViewColumnSortMode.NotSortable
+
             });
 
             dgv_layer.Rows.Add(true, "Layer 1");
@@ -56,7 +61,7 @@ namespace hollow_vector_graphics_editor
             dgv_layer.CurrentCellDirtyStateChanged += DGVLayer_CurrentCellDirtyStateChanged;
 
             editor.LayerManager.addLayer(dgv_layer.Rows[0].Tag as Layer);
-            editor.LayerManager.currentLayer = editor.LayerManager.layers[0];
+            editor.LayerManager.CurrentLayer = editor.LayerManager.Layers[0];
 
             canvas.PreviewKeyDown += canvas_PreviewKeyDown;
             canvas.KeyDown += canvas_KeyDown;
@@ -84,7 +89,7 @@ namespace hollow_vector_graphics_editor
             if (dgv_layer.Columns[e.ColumnIndex] is DataGridViewCheckBoxColumn)
             {
                 bool isChecked = (bool)dgv_layer.Rows[e.RowIndex].Cells[e.ColumnIndex].Value;
-                editor.LayerManager.currentLayer!.IsVisible = isChecked;
+                editor.LayerManager.CurrentLayer!.IsVisible = isChecked;
                 canvas.Invalidate();
             }
         }
@@ -92,7 +97,7 @@ namespace hollow_vector_graphics_editor
         {
             if (dgv_layer.SelectedRows.Count > 0)
             {
-                editor.LayerManager.currentLayer = dgv_layer.SelectedRows[0].Tag as Layer;
+                editor.LayerManager.CurrentLayer = dgv_layer.SelectedRows[0].Tag as Layer;
             }
         }
         private void canvas_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
@@ -118,7 +123,7 @@ namespace hollow_vector_graphics_editor
             if (dgv_layer.SelectedRows.Count == 0) return;
 
             int index = dgv_layer.SelectedRows[0].Index;
-            if (index == 0) return; // Already at the top
+            if (index == 0) return;
 
             DataGridViewRow row = dgv_layer.Rows[index];
             dgv_layer.Rows.RemoveAt(index);
@@ -134,7 +139,7 @@ namespace hollow_vector_graphics_editor
             if (dgv_layer.SelectedRows.Count == 0) return;
 
             int index = dgv_layer.SelectedRows[0].Index;
-            if (index >= dgv_layer.Rows.Count - 1) return; // Already at the bottom
+            if (index >= dgv_layer.Rows.Count - 1) return;
 
             DataGridViewRow row = dgv_layer.Rows[index];
             dgv_layer.Rows.RemoveAt(index);
@@ -155,7 +160,7 @@ namespace hollow_vector_graphics_editor
             dgv_layer.Rows[0].Selected = true;
 
             editor.LayerManager.addLayer(dgv_layer.Rows[0].Tag as Layer);
-            editor.LayerManager.currentLayer = dgv_layer.Rows[0].Tag as Layer;
+            editor.LayerManager.CurrentLayer = dgv_layer.Rows[0].Tag as Layer;
             canvas.Invalidate();
         }
         private void RemoveLayerButton_Click(object sender, EventArgs e)
@@ -172,13 +177,13 @@ namespace hollow_vector_graphics_editor
                 {
                     dgv_layer.Rows[index].Selected = true;
 
-                    editor.LayerManager.currentLayer = editor.LayerManager.layers[index];
+                    editor.LayerManager.CurrentLayer = editor.LayerManager.Layers[index];
                 }
                 else if (dgv_layer.Rows.Count > 0)
                 {
                     dgv_layer.Rows[dgv_layer.Rows.Count - 1].Selected = true;
 
-                    editor.LayerManager.currentLayer = editor.LayerManager.layers[dgv_layer.Rows.Count - 1];
+                    editor.LayerManager.CurrentLayer = editor.LayerManager.Layers[dgv_layer.Rows.Count - 1];
                 }
                 canvas.Invalidate();
             }
@@ -225,7 +230,7 @@ namespace hollow_vector_graphics_editor
         }
         private void Canvas_MouseDown(object sender, MouseEventArgs e)
         {
-            if (editor.LayerManager.currentLayer != null)
+            if (editor.LayerManager.CurrentLayer != null)
             {
                 if (e.Button == MouseButtons.Left)
                 {
@@ -246,7 +251,7 @@ namespace hollow_vector_graphics_editor
         }
         private void Canvas_MouseMove(object sender, MouseEventArgs e)
         {
-            if (editor.LayerManager.currentLayer != null)
+            if (editor.LayerManager.CurrentLayer != null)
             {
                 if (editor.IsMouseLeftDown)
                 {
@@ -267,7 +272,7 @@ namespace hollow_vector_graphics_editor
         }
         private void Canvas_MouseUp(object sender, MouseEventArgs e)
         {
-            if (editor.LayerManager.currentLayer != null)
+            if (editor.LayerManager.CurrentLayer != null)
             {
                 if (editor.IsMouseLeftDown)
                 {
