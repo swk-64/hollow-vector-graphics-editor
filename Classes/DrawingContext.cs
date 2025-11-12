@@ -1,10 +1,12 @@
-﻿using hollow_vector_graphics_editor.Classes.Shapes;
+﻿using hollow_vector_graphics_editor.Classes;
+using hollow_vector_graphics_editor.Classes.Shapes;
 
 namespace hollow_vector_graphics_editor.Classes
 {
     internal class DrawingContext
     {
-        public List<Shape> shapes;
+        //public Layer? currentLayer;
+        public LayerManager layerManager;
         public Shape? selectedShape { get; set; }
 
 
@@ -29,7 +31,7 @@ namespace hollow_vector_graphics_editor.Classes
             }
         }
 
-        public DrawingContext(Color strokeColor, Color fillColor, int strokeThickness)
+    public DrawingContext(LayerManager manager, Color strokeColor, Color fillColor, int strokeThickness)
         {
 
             this.strokeColor = strokeColor;
@@ -39,7 +41,8 @@ namespace hollow_vector_graphics_editor.Classes
             strokePen = new Pen(strokeColor, strokeThickness);
             fillBrush = new SolidBrush(fillColor);
 
-            shapes = new List<Shape>();
+            this.selectedShape = null;
+            this.layerManager = manager;
         }
     }
 }
